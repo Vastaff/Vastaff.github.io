@@ -4,7 +4,7 @@ import { WalletContractV4, TonClient, fromNano } from "@ton/ton";
 
 async function main() {
   // open wallet v4 (notice the correct wallet version here)
-  const mnemonic = "grunt donate away stomach knee present like strong occur foster glove fall balcony nasty possible orchard charge purse system sleep draft arctic stem loyal"; // your 24 secret words (replace ... with the rest of the words)
+  const mnemonic = "stomach knee present like strong occur foster glove fall balcony nasty possible orchard charge purse system sleep draft arctic stem loyal"; // your 24 secret words (replace ... with the rest of the words)
   const key = await mnemonicToWalletKey(mnemonic.split(" "));
   const wallet = WalletContractV4.create({ publicKey: key.publicKey, workchain: 0 });
 
