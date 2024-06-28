@@ -11,7 +11,8 @@ WebApp.ready();
  */
 ReactDOM.createRoot(document.getElementById('root')!).render(
   /* <TonConnectUIProvider manifestUrl={manifestUrl}> */
-   <React.StrictMode>
+  <h1>привет!!! </h1> 
+  <React.StrictMode>
     <App />
   </React.StrictMode>  
  /*  </TonConnectUIProvider>, */
