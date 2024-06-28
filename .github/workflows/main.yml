@@ -5,9 +5,8 @@ name: Deploy static content to Pages
 on:
    push:
     branches: ['main']
-
-   # Позволяет запустить этот рабочий процесс вручную на вкладке Действия
-#  workflow_dispatch:
+   workflow_dispatch: # Позволяет запустить этот рабочий процесс вручную c кнопки Действия
+    
 
 # Устанавливает разрешения GITHUB_TOKEN, для развертывание на страницах GitHub
 permissions:
