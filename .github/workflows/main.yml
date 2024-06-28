@@ -1,18 +1,51 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+# Простой рабочий процесс для развертывания статического контента на страницах GitHub
+name: Deploy static content to Pages
+
+# Выполняется по нажатиям, нацеленным на ветку по умолчанию
+on:
+   push:
+    branches: ['main']
+
+   # Позволяет запустить этот рабочий процесс вручную на вкладке Действия
+#  workflow_dispatch:
+
+# Устанавливает разрешения GITHUB_TOKEN, для развертывание на страницах GitHub
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Разрешить одно одновременное развертывание
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+ 
 jobs:
-  Explore-GitHub-Actions:
+    # Одно задание на развертывание, поскольку мы только приступаем к развертыванию
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload dist repository
+          path: './docs'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
