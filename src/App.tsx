@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 
 import WebApp from '@twa-dev/sdk'
@@ -9,11 +8,6 @@ function App() {
 
   return (
     <>
-      <div>
-         <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        </div>
       <h1>TWA + Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
